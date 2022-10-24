@@ -199,6 +199,14 @@ fileprivate extension YPAssetZoomableView {
             view.frame.size.height = screenWidth * aspectRatio
         } else if h > w { // Portrait
             aspectRatio = w / h
+            
+            /** add scale restriction, Aleksei Grebenkin*/
+            if aspectRatio < 0.8 {
+                zoomScale = 0.8
+                aspectRatio = 0.8
+            }
+            /** add restriction */
+            
             view.frame.size.width = screenWidth * aspectRatio
             view.frame.size.height = screenWidth
             
@@ -233,7 +241,14 @@ fileprivate extension YPAssetZoomableView {
         if w > h { // Landscape
             squareZoomScale = (w / h)
         } else if h > w { // Portrait
-            squareZoomScale = (h / w)
+            /** add scale restriction, Aleksei Grebenkin */
+            if w / h < 0.8 {
+                squareZoomScale = 1.25
+            } else {
+                squareZoomScale = (h / w)
+            }
+//            squareZoomScale = (h / w)
+            /** add restriction */
         }
         
         return squareZoomScale
